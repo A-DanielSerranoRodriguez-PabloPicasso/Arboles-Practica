@@ -5,7 +5,8 @@ import models.Nodo;
 
 public class MainApp {
 	public static void main(String[] args) {
-		Nodo n1 = new Nodo("uno"), raiz = new Nodo("origen"), n2 = new Nodo("dos"), n3 = new Nodo("tres"), n4 = new Nodo("cuatro");
+		Nodo n1 = new Nodo("uno"), raiz = new Nodo("origen"), n2 = new Nodo("dos"), n3 = new Nodo("tres"),
+				n4 = new Nodo("cuatro");
 		raiz.addHijo(n1);
 		raiz.addHijo(n2);
 		n1.addHijo(n3);
@@ -18,8 +19,14 @@ public class MainApp {
 		System.out.println();
 		System.out.println(ar.buscaNodo("e"));
 		System.out.println(ar.nivelNodo("tres"));
-		
-		System.out.println(ar.path("Fijo")+"\n");
+		System.out.println();
+		System.out.println(ar.path("Fijo") + "\n");
+		ar.mostrarArbol();
+		System.out.println();
+		ar.podar(n2);
+		ar.mostrarArbol();
+		System.out.println();
+		ar.cortarPegar(n3, n2);
 		ar.mostrarArbol();
 	}
 }

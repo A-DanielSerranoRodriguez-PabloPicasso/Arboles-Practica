@@ -20,18 +20,26 @@ public class Arbol {
 	}
 
 	public Nodo buscaNodo(String busco) {
-		return raiz.buscaNodo(busco, raiz);
+		return raiz.buscaNodo(busco);
 	}
 
 	public int nivelNodo(String busco) {
-		return raiz.nivelNodo(busco, raiz, 0);
+		return raiz.nivelNodo(busco, 0);
 	}
 
 	public String path(String valor) {
-		return raiz.path(valor, raiz);
+		return raiz.path(valor);
+	}
+
+	public void mostrarArbol() {
+		raiz.mostrarArbol("");
 	}
 	
-	public void mostrarArbol() {
-		raiz.mostrarArbol(raiz, "");
+	public void podar(Nodo nodo) {
+		raiz.podar(nodo);
+	}
+	
+	public void cortarPegar(Nodo origen, Nodo destino) {
+		raiz.cortarPegar(origen, destino);
 	}
 }

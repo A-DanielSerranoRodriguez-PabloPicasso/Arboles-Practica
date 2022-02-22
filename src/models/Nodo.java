@@ -37,42 +37,57 @@ public class Nodo {
 		return nodo;
 	}
 
-	public Nodo buscaNodo(String busco, Nodo nodo) {
-		if (nodo.valor.equals(busco))
-			return nodo;
+	public Nodo buscaNodo(String busco) {
+		if (this.valor.equals(busco))
+			return this;
 		else
-			for (Nodo hijo : nodo.hijos)
-				if (buscaNodo(busco, hijo) != null)
-					return buscaNodo(busco, hijo);
+			for (Nodo hijo : this.hijos)
+				if (hijo.buscaNodo(busco) != null)
+					return hijo.buscaNodo(busco);
 		return null;
 	}
 
-	public int nivelNodo(String busco, Nodo nodo, int n) {
-		if (busco.equals(nodo.valor))
+	public int nivelNodo(String busco, int n) {
+		if (busco.equals(this.valor))
 			return n;
 		else
-			for (Nodo hijo : nodo.hijos)
-				if (nivelNodo(busco, hijo, ++n) != --n)
-					return nivelNodo(busco, hijo, ++n);
+			for (Nodo hijo : this.hijos)
+				if (hijo.nivelNodo(busco, ++n) != --n)
+					return hijo.nivelNodo(busco, ++n);
 		return --n;
 	}
 
-	public String path(String valor, Nodo nodo) {
-		if (nodo.valor.equals(valor))
-			return nodo.valor + "/";
+	public String path(String valor) {
+		if (this.valor.equals(valor))
+			return this.valor + "/";
 		else
-			for (Nodo hijo : nodo.hijos)
-				if (path(valor, hijo) != null)
-					return nodo.valor + "/" + path(valor, hijo);
+			for (Nodo hijo : this.hijos)
+				if (hijo.path(valor) != null)
+					return this.valor + "/" + hijo.path(valor);
 		return null;
 	}
 
-	public void mostrarArbol(Nodo nodo, String padre) {
-		System.out.println(padre + nodo.valor + "/");
-		if (nodo.hijos.size() != 0)
-			for (Nodo hijo : nodo.hijos) {
-				padre += nodo.valor + "/";
-				mostrarArbol(hijo, padre);
+	public void mostrarArbol(String padre) {
+		System.out.println(padre + this.valor + "/");
+		if (this.hijos.size() != 0)
+			for (Nodo hijo : this.hijos) {
+				padre += this.valor + "/";
+				hijo.mostrarArbol(padre);
+				padre = "";
+			}
+	}
+
+	public void podar(Nodo nodo) {
+		if (this.buscaNodo(nodo.valor) != null)
+			this.buscaNodo(nodo.valor).hijos.clear();
+	}
+
+	public void cortarPegar(Nodo origen, Nodo destino) {
+		if (this.buscaNodo(origen.valor) != null)
+			if (this.buscaNodo(destino.valor) != null) {
+				String[] rutaOrigen = this.path(origen.valor).split("/");
+				this.buscaNodo(destino.valor).hijos.add(this.buscaNodo(origen.valor));
+				this.buscaNodo(rutaOrigen[rutaOrigen.length - 2]).hijos.remove(origen);
 			}
 	}
 
